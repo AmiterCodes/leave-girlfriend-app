@@ -18,6 +18,7 @@ export default class Create extends React.Component {
         
                 לינק:
             <code>{this.state.link}</code>
+            <button onClick={this.bitlify}>Bitlify</button>
             </>)
     }
 
@@ -30,31 +31,45 @@ export default class Create extends React.Component {
             name: '',
             pass: ''
         }
-        this.handleChange = this.handleChange.bind(this);
+        this.bitlify = this.bitlify.bind(this);
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handlePassChange = this.handlePassChange.bind(this);
     }
 
-    handlePassChange =(e) => {
+    handlePassChange = async (e) => {
         this.setState({
             pass: e.target.value,
-            link: window.location.href.replace("create", "surprise") + "?name=" + this.state.name + "&password=" + e.target.value});
+            link:window.location.href.replace("create", "surprise") + "?name=" + this.state.name + "&password=" + e.target.value});
             
         e.preventDefault();
     }
 
-    handleNameChange =(e) => {
+    handleNameChange = async (e) => {
         this.setState({
             name: e.target.value,
-            link: window.location.href.replace("create", "surprise") + "?name=" + e.target.value + "&password=" + this.state.pass});
+            link:window.location.href.replace("create", "surprise") + "?name=" + e.target.value + "&password=" + this.state.pass});
             
-        this.handleChange();
         e.preventDefault();
     }
 
-    handleChange = () => {
+    async bitlify() {
+        let link = this.state.link;
         
-    }
+        let body = JSON.stringify({
+            long_url: link
+        })
+        let data = await fetch('https://api-ssl.bitly.com/v4/shorten', {
+            method: 'POST',
+            body,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer dab4a184a1682a8d36ac31375710b35566940567'
+            }
+        });
+        let b = await data.json();
 
-    
+        this.setState({
+            link: b.link
+        })
+    }
 }
