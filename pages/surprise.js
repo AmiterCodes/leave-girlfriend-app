@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import ConfettiCanvas from 'react-confetti-canvas';
 
 function click() {
 
@@ -30,9 +31,13 @@ export default function Surprise() {
         </>)
 
     } else
-    return (<><h1>
-        {name} היקרה
-    </h1>
-    <p>אני רוצה להודיע לך שאני נפרד ממך, הכוס שלך משעמם</p>
+    return (<>
+        <marquee>
+        <h1>
+            {name} היקרה
+        </h1>
+        <p>אני רוצה להודיע לך שאני נפרד ממך, הכוס שלך משעמם</p>
+        </marquee>
+        <ConfettiCanvas />
     </>)
 }
