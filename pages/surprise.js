@@ -1,6 +1,4 @@
 import { useRouter } from 'next/router'
-import ConfettiCanvas from 'react-confetti-canvas';
-
 function click() {
 
 }
@@ -38,6 +36,6 @@ export default function Surprise() {
         </h1>
         <p>אני רוצה להודיע לך שאני נפרד ממך, הכוס שלך משעמם</p>
         </marquee>
-        <ConfettiCanvas />
-    </>)
+        <img src="images/confetti.gif"/>
+            </>)
 }
